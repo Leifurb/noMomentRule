@@ -1,0 +1,34 @@
+name: typecheck, run tests then publish
+on:
+  push:
+    branches: main
+jobs:
+  publishnpm:
+
+    name: Publish Package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3.3.0
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18
+          registry-url: "https://npm.pkg.github.com"
+      - run: npm ci
+
+      - name: Check if version has been updated
+        id: check
+        uses: EndBug/version-check@v2
+
+      - name: Log when changed
+        if: steps.check.outputs.changed == 'true'
+        run: npm publish --registry
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log when unchanged
+        if: steps.check.outputs.changed == 'false'
+        run: 'echo "No version change : wont publish/"'

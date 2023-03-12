@@ -1,0 +1,23 @@
+{
+  "name": "nomomentrule",
+  "version": "1.0.0",
+  "description": "lint rule that forbids moment",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leifurb/noMomentRule.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Leifurb/noMomentRule/issues"
+  },
+  "homepage": "https://github.com/Leifurb/noMomentRule#readme",
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "eslint-plugin-vihu": "file:./rules"
+  }
+}
